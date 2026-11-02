@@ -46,6 +46,17 @@ python build.py
 
 `build.py` 也支持把本仓库放在 `BattlefieldOps/` 旁边，直接复用 `../BattlefieldOps/build/compile-classpath.txt`。
 
+
+## 自动构建
+
+推送 tag（如 `v1.3.0`）会触发 GitHub Actions：
+
+1. 拉取 TaCZ 1.21.1 的编译期依赖（Modrinth `tacz-1.21.1`）
+2. `./gradlew build`
+3. 把 `build/libs/*.jar` 作为 Release 附件发布（自动生成 release notes）
+
+普通 push 与 PR 也会构建并上传 artifact，方便验证。
+
 ## 目录结构
 
 ```

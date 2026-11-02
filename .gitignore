@@ -1,4 +1,4 @@
-﻿build/
+build/
 *.jar
 *.class
 run/
@@ -6,3 +6,7 @@ logs/
 .idea/
 *.iml
 __pycache__/
+.gradle/
+build/
+run/
+libs/

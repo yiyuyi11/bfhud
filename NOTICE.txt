@@ -1,12 +1,13 @@
-﻿ModernHUD (NeoForge 1.21.1 port)
+ModernHUD (NeoForge 1.21.1 port)
 
-This repository is an unofficial port of the ModernHud mod by xypp (originally for TaCZ on
-1.20.1 Forge) to Minecraft 1.21.1 / NeoForge 21.1.
+This repository is an unofficial port of ModernHud by xypp (originally for TaCZ on 1.20.1 Forge) to
+Minecraft 1.21.1 / NeoForge 21.1.
 
-All textures, sound assets and the original design are the work of the original author and remain
-under their copyright. The port only adapts the rendering pipeline, configuration system and the
-integration layers to 1.21.1.
+The original mod is licensed under the GNU General Public License v3.0, and so is this port. Textures,
+sound assets and the original design remain the work of the original author and are redistributed here
+under the same license.
 
-If you are the original author and want this repository taken down, please open an issue.
+Changes made for this port: rendering pipeline, configuration system, compatibility layers
+(TaCZ / Superb Warfare / LR Tactical / Modern Loadout / Xaero) and HUD-avoidance for Battlefield Ops.
 
 Licensed under the GNU General Public License v3.0 (see LICENSE).

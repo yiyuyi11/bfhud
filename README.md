@@ -77,7 +77,7 @@ src/main/resources/
 
 ## 版权与致谢
 
-- 原版 **ModernHud** 由 [xypp](https://github.com/xypp) 开发（TaCZ 生态，1.20.1 Forge）。本仓库是面向 1.21.1 NeoForge 的**非官方移植**，与原作者无隶属关系。
-- 贴图与音效资源来自原模组，版权归原作者所有；如果你是原作者并希望移除，请开 issue。
-- 本仓库代码以仓库根目录的 **GPL-3.0** 许可证发布。第三方模组（TaCZ、Superb Warfare、LR Tactical 等）不随本仓库分发，需自行安装。
+- 原版 **ModernHud** 由 [xypp](https://github.com/xypp) 开发（TaCZ 生态，1.20.1 Forge），以 **GPL-3.0** 发布。本仓库是面向 1.21.1 NeoForge 的**非官方移植**，与原作者无隶属关系。
+- 本仓库同样以 **GPL-3.0** 发布（见 `LICENSE`），贴图与音效在原许可证下继续分发，版权归原作者所有。
+- 第三方模组（TaCZ、Superb Warfare、LR Tactical 等）不随本仓库分发，需自行安装。
 - 移植与改动部分：渲染管线、配置系统、兼容层、Battlefield Ops 避让逻辑。

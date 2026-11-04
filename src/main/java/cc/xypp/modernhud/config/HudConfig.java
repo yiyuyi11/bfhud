@@ -14,6 +14,12 @@ import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 public class HudConfig {
    private static final Builder BUILDER = new Builder();
+   private static final BooleanValue MASTER = BUILDER.comment(
+         new String[]{"Master switch for the whole HUD. Off hides every ModernHUD element and lets the",
+            "vanilla HUD draw again."}
+      )
+      .translation("modernhud.config.master")
+      .define("master", true);
    private static final EnumValue<HudGuiScaleMode> GUI_SCALE_MODE = BUILDER.comment(
          new String[]{
             "Where the HUD's GUI scale comes from. MINECRAFT follows the game setting. FIXED uses",
@@ -293,7 +299,18 @@ public class HudConfig {
       .translation("modernhud.config.break_icon_duration_ms")
       .defineInRange("breakIconDurationMs", 700, 50, 10000);
    public static final ForgeConfigSpec SPEC = BUILDER.build();
+   /** Master switch state, mirrored from the config. */
+   public static boolean master() {
+      return master;
+   }
+
+   public static void toggleMaster() {
+      master = !master;
+   }
+
    public static boolean enabled = true;
+   /** Master switch state, mirrored from the config. */
+   public static boolean master = true;
    public static boolean showHealthBar;
    public static boolean showName;
    public static boolean personalUseTeamColor;
@@ -378,6 +395,7 @@ public class HudConfig {
    }
 
    public static void refresh() {
+      master = (Boolean)MASTER.get();
       enabled = (Boolean)ENABLED.get();
       showHealthBar = (Boolean)SHOW_HEALTH_BAR.get();
       showName = (Boolean)SHOW_NAME.get();

@@ -4,7 +4,7 @@ license="GPL-3.0-only"
 
 [[mods]]
 modId="modernhud"
-version="1.3.0-forge1201"
+version="1.4.0-forge1201"
 displayName="ModernHUD (Forge 1.20.1 port)"
 description="TaCZ Modern-Warfare-style HUD ported to 1.20.1 Forge: weapon block, personal status, squad list and a 9-slot gear bar. Kill icons and hit markers are intentionally omitted (they conflict with the Battlefield Ops kill feed)."
 

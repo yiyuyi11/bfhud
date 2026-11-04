@@ -412,5 +412,6 @@
   "modernhud.config.infobox_style_border_outset": "Info box: Border outset",
   "modernhud.config.weapon_info_box_gap": "Info box: gap to the weapon boxes (px)",
   "modernhud.config.weapon_info_content_raise": "Info box: raise the rows inside (px)",
-  "modernhud.config.weapon_info_content_scale": "Info box: size of the rows inside (%)"
+  "modernhud.config.weapon_info_content_scale": "Info box: size of the rows inside (%)",
+  "key.modernhud.toggle_hud": "Toggle ModernHUD"
 }

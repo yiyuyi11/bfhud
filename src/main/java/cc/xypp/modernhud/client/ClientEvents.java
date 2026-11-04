@@ -44,7 +44,7 @@ public class ClientEvents {
    }
 
    private static net.minecraftforge.client.gui.overlay.IGuiOverlay layer(IGuiOverlay inner) {
-      return (gui,graphics,partial,w,h)->{ensureConfig();HudScale.render(inner,graphics,partial,w,h);};
+      return (gui,graphics,partial,w,h)->{ensureConfig();if(!HudConfig.master())return;HudScale.render(inner,graphics,partial,w,h);};
    }
    public static void onRegisterOverlays(net.minecraftforge.client.event.RegisterGuiOverlaysEvent event) {
       event.registerAboveAll("feedback_icon",layer(new FeedbackIconOverlay()));

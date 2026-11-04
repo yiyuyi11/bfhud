@@ -25,11 +25,11 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.LerpingBossEvent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.neoforge.client.event.CustomizeGuiOverlayEvent.BossEventProgress;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent.BossEventProgress;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 public class BossBarOverlay implements IGuiOverlay {
    private static final Map<UUID, LerpingBossEvent> SEEN = new LinkedHashMap<>();

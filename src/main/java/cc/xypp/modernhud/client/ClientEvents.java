@@ -4,11 +4,11 @@ import cc.xypp.modernhud.config.ConfigRefresh;
 import cc.xypp.modernhud.config.ExtraHudConfig;
 import cc.xypp.modernhud.config.HudConfig;
 import cc.xypp.modernhud.config.WeaponConfig;
-import net.minecraft.client.gui.LayeredDraw;
+
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
-import net.neoforged.neoforge.client.gui.VanillaGuiLayers;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+
+
 
 /**
  * HUD layer registration.
@@ -43,44 +43,18 @@ public class ClientEvents {
       }
    }
 
-   /** Bridges the local overlay interface onto the 1.21.1 GUI layer system. */
-   private static LayeredDraw.Layer layer(IGuiOverlay inner) {
-      return (graphics, delta) -> {
-         ensureConfig();
-         HudScale.render(inner, graphics, delta.getGameTimeDeltaPartialTick(false),
-                 graphics.guiWidth(), graphics.guiHeight());
-      };
+   private static net.minecraftforge.client.gui.overlay.IGuiOverlay layer(IGuiOverlay inner) {
+      return (gui,graphics,partial,w,h)->{ensureConfig();HudScale.render(inner,graphics,partial,w,h);};
    }
-
-   private static ResourceLocation id(String path) {
-      return ResourceLocation.fromNamespaceAndPath("modernhud", path);
-   }
-
-   private static void hide(RegisterGuiLayersEvent event, ResourceLocation... layers) {
-      LayeredDraw.Layer empty = (graphics, delta) -> { };
-      for (ResourceLocation layer : layers) {
-         event.replaceLayer(layer, empty);
-      }
-   }
-
-   public static void onRegisterOverlays(RegisterGuiLayersEvent event) {
-      // Unconditional: this runs during registration, before the TOML is loaded, so reading a config value
-      // here silently skipped the hide. The mod draws its own six-slot strip, vitals and gear, so the
-      // vanilla rows must always give way.
-      // EXPERIENCE_LEVEL is a separate NeoForge layer from EXPERIENCE_BAR: the bar was hidden but the
-      // level number kept drawing, which is exactly the leftover that was still on screen.
-      hide(event, VanillaGuiLayers.HOTBAR, VanillaGuiLayers.PLAYER_HEALTH,
-              VanillaGuiLayers.ARMOR_LEVEL, VanillaGuiLayers.FOOD_LEVEL, VanillaGuiLayers.EXPERIENCE_BAR,
-              VanillaGuiLayers.EXPERIENCE_LEVEL, VanillaGuiLayers.JUMP_METER);
-
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("feedback_icon"), layer(new FeedbackIconOverlay()));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("weapon_hud"), layer(WEAPON_HUD));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("ammo_alert"), layer(AMMO_ALERT));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("perk_toast"), layer(new PerkToastOverlay()));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("boss_bar"), layer(new BossBarOverlay()));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("vitals_hud"), layer(VitalsHud.create()));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("hotbar_hud"), layer(HotbarHud.create()));
-      event.registerAbove(VanillaGuiLayers.HOTBAR, id("remaining_slots"), layer(RemainingSlotsHud.create()));
+   public static void onRegisterOverlays(net.minecraftforge.client.event.RegisterGuiOverlaysEvent event) {
+      event.registerAboveAll("feedback_icon",layer(new FeedbackIconOverlay()));
+      event.registerAboveAll("weapon_hud",layer(WEAPON_HUD));
+      event.registerAboveAll("ammo_alert",layer(AMMO_ALERT));
+      event.registerAboveAll("perk_toast",layer(new PerkToastOverlay()));
+      event.registerAboveAll("boss_bar",layer(new BossBarOverlay()));
+      event.registerAboveAll("vitals_hud",layer(VitalsHud.create()));
+      event.registerAboveAll("hotbar_hud",layer(HotbarHud.create()));
+      event.registerAboveAll("remaining_slots",layer(RemainingSlotsHud.create()));
    }
 
    public static void onClientSetup(FMLClientSetupEvent event) {

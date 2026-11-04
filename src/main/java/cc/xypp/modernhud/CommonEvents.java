@@ -8,16 +8,16 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.MobEffectEvent.Remove;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.MobEffectEvent.Remove;
 
 /**
  * Shield-break feedback.
  *
- * <p>1.21.1 folded {@code LivingHurtEvent} into {@code LivingDamageEvent.Pre} and dropped the standalone
+ * <p>1.21.1 folded {@code LivingHurtEvent} into {@code LivingDamageEvent} and dropped the standalone
  * living-tick event, so this class listens to the pre-damage hook plus the effect-removed hook only.
  */
 @EventBusSubscriber(modid = "modernhud")
@@ -26,10 +26,10 @@ public class CommonEvents {
    private static final Map<LivingEntity, Long> lastBreakHandledTick = new WeakHashMap<>();
 
    @SubscribeEvent
-   public static void onLivingDamage(LivingDamageEvent.Pre event) {
+   public static void onLivingDamage(LivingDamageEvent event) {
       LivingEntity entity = event.getEntity();
       if (entity.level().isClientSide()) return;
-      float before = entity.getAbsorptionAmount() + event.getNewDamage();
+      float before = entity.getAbsorptionAmount() + event.getAmount();
       Float previous = pendingHurtAbsorption.remove(entity);
       if (previous == null) return;
       float after = entity.getAbsorptionAmount();
@@ -40,7 +40,7 @@ public class CommonEvents {
 
       ServerPlayer attacker = event.getSource().getEntity() instanceof ServerPlayer sp ? sp : null;
       ServerPlayer victim = entity instanceof ServerPlayer vp ? vp : null;
-      boolean lethal = event.getNewDamage() >= entity.getHealth();
+      boolean lethal = event.getAmount() >= entity.getHealth();
       if (attacker != null) {
          send(attacker, fullyBroken, true, lethal);
       }
@@ -54,7 +54,7 @@ public class CommonEvents {
       LivingEntity entity = event.getEntity();
       if (entity.level().isClientSide()) return;
       MobEffectInstance instance = event.getEffectInstance();
-      if (instance == null || !instance.is(MobEffects.ABSORPTION)) return;
+      if (instance == null || instance.getEffect()!=MobEffects.ABSORPTION) return;
       if (entity.getAbsorptionAmount() <= 0.0F) return;
       entity.setAbsorptionAmount(0.0F);
       lastBreakHandledTick.put(entity, entity.level().getGameTime());

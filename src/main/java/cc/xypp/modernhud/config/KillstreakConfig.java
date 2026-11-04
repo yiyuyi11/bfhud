@@ -1,20 +1,20 @@
 package cc.xypp.modernhud.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.Builder;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.DoubleValue;
-import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
-import net.neoforged.fml.event.config.ModConfigEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 public class KillstreakConfig {
    private static final Builder BUILDER = new Builder();
-   public static final ModConfigSpec SPEC = BUILDER.build();
+   public static final ForgeConfigSpec SPEC = BUILDER.build();
    private static final BooleanValue ENABLED = BUILDER.comment(
          new String[]{"Draw the tracker with ModernHUD. ModernLoadout's own vertical bar is hidden while this", "is on."}
       )

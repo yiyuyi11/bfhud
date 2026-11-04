@@ -34,7 +34,7 @@ public final class HotbarHud implements IGuiOverlay {
    @Override
    public void render(GuiGraphics graphics, float partialTick, int screenWidth, int screenHeight) {
       Minecraft mc = Minecraft.getInstance();
-      if (mc.player == null || mc.options.hideGui) return;
+      if (mc.player == null || mc.player.isSpectator() || mc.options.hideGui) return;
       // In a vehicle the hotbar widgets step aside: the vehicle readouts own that corner.
       if (mc.player.getRootVehicle() != mc.player) return;
       // Hidden on battlefield_ops screens (deploy, lobby, editor): those draw their own layout there.

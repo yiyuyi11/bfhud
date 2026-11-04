@@ -11,11 +11,11 @@ import cc.xypp.modernhud.config.HudConfig;
 import cc.xypp.modernhud.config.SoundsConfig;
 import cc.xypp.modernhud.config.WeaponConfig;
 import cc.xypp.modernhud.network.ModNetworking;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModContainer;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 
 /**
  * ModernHUD 1.21.1 NeoForge entry point.
@@ -24,19 +24,23 @@ import net.neoforged.fml.config.ModConfig;
  * pattern — the mod bus and container arrive through the constructor instead of the old static
  * {@code FMLJavaModLoadingContext} / {@code ModLoadingContext} singletons.
  */
-@Mod(value = "modernhud", dist = Dist.CLIENT)
+@Mod("modernhud")
 public class ModernHud {
     public static final String MOD_ID = "modernhud";
 
-    public ModernHud(IEventBus modBus, ModContainer container) {
+    public ModernHud() {
+        IEventBus modBus=net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus();
+        var container=net.minecraftforge.fml.ModLoadingContext.get();
         SoundRegistry.SOUNDS.register(modBus);
         ModNetworking.register(modBus);
         // RegisterGuiLayersEvent and RegisterKeyMappingsEvent are MOD-bus events. The @EventBusSubscriber
         // annotation defaults to the game bus, and its `bus` attribute is removed in 1.21.1, so the listeners
         // are attached explicitly here instead.
+        if (net.minecraftforge.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
         modBus.addListener(ClientEvents::onRegisterOverlays);
         modBus.addListener(ClientEvents::onClientSetup);
         modBus.addListener(ModKeybinds.ModBus::onRegisterKeys);
+        }
         // The config classes keep their values in plain static fields filled by refresh(); without this the
         // feature flags stay at their Java defaults (all off) and every HUD layer returns immediately.
         modBus.addListener(ModernHud::onConfigLoad);
@@ -49,7 +53,7 @@ public class ModernHud {
         container.registerConfig(ModConfig.Type.CLIENT, ExtraHudConfig.SPEC, "modernhud-extra.toml");
     }
 
-    private static void onConfigLoad(net.neoforged.fml.event.config.ModConfigEvent event) {
+    private static void onConfigLoad(net.minecraftforge.fml.event.config.ModConfigEvent event) {
         ConfigRefresh.refreshAll();
     }
 

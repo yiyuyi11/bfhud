@@ -1,10 +1,10 @@
 package cc.xypp.modernhud.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.Builder;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.EnumValue;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 public final class ElementStyle {
    private final IntValue opacityV;

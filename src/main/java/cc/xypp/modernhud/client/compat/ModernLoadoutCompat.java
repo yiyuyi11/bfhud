@@ -5,7 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.fml.ModList;
+import net.minecraftforge.fml.ModList;
 import org.slf4j.Logger;
 
 public final class ModernLoadoutCompat {

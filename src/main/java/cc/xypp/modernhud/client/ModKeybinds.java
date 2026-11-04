@@ -3,11 +3,11 @@ package cc.xypp.modernhud.client;
 import cc.xypp.modernhud.config.WeaponConfig;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
+import net.minecraftforge.event.TickEvent.ClientTickEvent;
 
 /**
  * Keybinds. The killstreak/compass/editor keys are dropped with those widgets; only the weapon-HUD toggle
@@ -26,7 +26,8 @@ public class ModKeybinds {
    )
    public static class ForgeBus {
       @SubscribeEvent
-      public static void onClientTick(ClientTickEvent.Post event) {
+      public static void onClientTick(ClientTickEvent event) {
+        if(event.phase!=net.minecraftforge.event.TickEvent.Phase.END)return;
          while (TOGGLE_WEAPON_HUD.consumeClick()) {
             WeaponConfig.toggleEnabled();
          }

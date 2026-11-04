@@ -20,9 +20,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.item.ItemStack;
 
 public class WeaponHudOverlay implements IGuiOverlay {
-   private static final ResourceLocation FIRE_ICON_SEMI = ResourceLocation.fromNamespaceAndPath("modernhud", "textures/hud/fire_mode_semi.png");
-   private static final ResourceLocation FIRE_ICON_AUTO = ResourceLocation.fromNamespaceAndPath("modernhud", "textures/hud/fire_mode_auto.png");
-   private static final ResourceLocation FIRE_ICON_BURST = ResourceLocation.fromNamespaceAndPath("modernhud", "textures/hud/fire_mode_burst.png");
+   private static final ResourceLocation FIRE_ICON_SEMI = new ResourceLocation("modernhud", "textures/hud/fire_mode_semi.png");
+   private static final ResourceLocation FIRE_ICON_AUTO = new ResourceLocation("modernhud", "textures/hud/fire_mode_auto.png");
+   private static final ResourceLocation FIRE_ICON_BURST = new ResourceLocation("modernhud", "textures/hud/fire_mode_burst.png");
    private static final int PAD = 6;
    static final int ICON_BOX_W = 64;
    static final int ICON_BOX_H = 32;

@@ -29,7 +29,7 @@ public final class VitalsHud implements IGuiOverlay {
    /** Undamaged bar: white, so a full-health readout is silent instead of alarming. */
    private static final int HEALTH_FULL = 0xffeeeff2;
    private static final net.minecraft.resources.ResourceLocation MARKER_TEXTURE =
-         net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("modernhud", "textures/gui/health_marker.png");
+         new net.minecraft.resources.ResourceLocation("modernhud", "textures/gui/health_marker.png");
 
    private static final int HEALTH_LOW = 0xff8f1a1a;
    /** Empty part of the bar: black at just under half opacity, so the world shows through faintly. */
@@ -48,7 +48,7 @@ public final class VitalsHud implements IGuiOverlay {
    public void render(GuiGraphics graphics, float partialTick, int screenWidth, int screenHeight) {
       Minecraft mc = Minecraft.getInstance();
       LocalPlayer player = mc.player;
-      if (player == null || mc.options.hideGui) return;
+      if (player == null || player.isSpectator() || mc.options.hideGui) return;
       if (player.getRootVehicle() != player) return;
       // The deployment screen draws its own layout; a floating vitals block in the corner would sit on top
       // of its panels. Checked by class name because battlefield_ops is an optional dependency.

@@ -7,19 +7,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.BiConsumer;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.ValueSpec;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.ValueSpec;
 
 public final class ConfigPaths {
    private ConfigPaths() {
    }
 
-   public static ConfigValue<?> find(ModConfigSpec spec, String path) {
+   public static ConfigValue<?> find(ForgeConfigSpec spec, String path) {
       return spec.getValues().get(Arrays.asList(path.split("\\."))) instanceof ConfigValue<?> cv ? cv : null;
    }
 
-   public static boolean set(ModConfigSpec spec, String path, Object value) {
+   public static boolean set(ForgeConfigSpec spec, String path, Object value) {
       ConfigValue cv = find(spec, path);
       if (cv == null) {
          return false;
@@ -37,19 +37,19 @@ public final class ConfigPaths {
       }
    }
 
-   public static int resetAll(ModConfigSpec spec) {
+   public static int resetAll(ForgeConfigSpec spec) {
       int[] changed = new int[]{0};
       walk(spec, spec.getSpec(), new ArrayList<>(), (cv, vs) -> {
          Object def = vs.getDefault();
          if (!Objects.equals(cv.get(), def)) {
-            ((net.neoforged.neoforge.common.ModConfigSpec.ConfigValue<Object>)cv).set(def);
+            ((net.minecraftforge.common.ForgeConfigSpec.ConfigValue<Object>)cv).set(def);
             changed[0]++;
          }
       });
       return changed[0];
    }
 
-   private static void walk(ModConfigSpec owner, UnmodifiableConfig cfg, List<String> prefix, BiConsumer<ConfigValue<?>, ValueSpec> out) {
+   private static void walk(ForgeConfigSpec owner, UnmodifiableConfig cfg, List<String> prefix, BiConsumer<ConfigValue<?>, ValueSpec> out) {
       for (Entry e : cfg.entrySet()) {
          List<String> path = new ArrayList<>(prefix);
          path.add(e.getKey());
@@ -65,7 +65,7 @@ public final class ConfigPaths {
       }
    }
 
-   public static void save(ModConfigSpec spec) {
+   public static void save(ForgeConfigSpec spec) {
       try {
          spec.save();
       } catch (RuntimeException var2) {

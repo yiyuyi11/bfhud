@@ -40,26 +40,26 @@ public final class SoftDraw {
 
         /** Corner colours in order: top-left, bottom-left, bottom-right, top-right. */
         void quad(float x0, float y0, float x1, float y1, int c00, int c01, int c11, int c10) {
-            bb.addVertex(matrix, x0, y0, 0.0F).setColor(c00);
-            bb.addVertex(matrix, x0, y1, 0.0F).setColor(c01);
-            bb.addVertex(matrix, x1, y1, 0.0F).setColor(c11);
-            bb.addVertex(matrix, x1, y0, 0.0F).setColor(c10);
+            bb.vertex(matrix, x0, y0, 0.0F).color(c00).endVertex();
+            bb.vertex(matrix, x0, y1, 0.0F).color(c01).endVertex();
+            bb.vertex(matrix, x1, y1, 0.0F).color(c11).endVertex();
+            bb.vertex(matrix, x1, y0, 0.0F).color(c10).endVertex();
         }
 
         /** A flat-shaded triangle, used by the radial and arc helpers. */
         void tri(float x0, float y0, float x1, float y1, float x2, float y2, int argb) {
-            bb.addVertex(matrix, x0, y0, 0.0F).setColor(argb);
-            bb.addVertex(matrix, x1, y1, 0.0F).setColor(argb);
-            bb.addVertex(matrix, x2, y2, 0.0F).setColor(argb);
-            bb.addVertex(matrix, x2, y2, 0.0F).setColor(argb);
+            bb.vertex(matrix, x0, y0, 0.0F).color(argb).endVertex();
+            bb.vertex(matrix, x1, y1, 0.0F).color(argb).endVertex();
+            bb.vertex(matrix, x2, y2, 0.0F).color(argb).endVertex();
+            bb.vertex(matrix, x2, y2, 0.0F).color(argb).endVertex();
         }
 
         /** A triangle with independent corner colours. */
         void tri(float x0, float y0, float x1, float y1, float x2, float y2, int c0, int c1, int c2) {
-            bb.addVertex(matrix, x0, y0, 0.0F).setColor(c0);
-            bb.addVertex(matrix, x1, y1, 0.0F).setColor(c1);
-            bb.addVertex(matrix, x2, y2, 0.0F).setColor(c2);
-            bb.addVertex(matrix, x2, y2, 0.0F).setColor(c2);
+            bb.vertex(matrix, x0, y0, 0.0F).color(c0).endVertex();
+            bb.vertex(matrix, x1, y1, 0.0F).color(c1).endVertex();
+            bb.vertex(matrix, x2, y2, 0.0F).color(c2).endVertex();
+            bb.vertex(matrix, x2, y2, 0.0F).color(c2).endVertex();
         }
     }
 
@@ -70,17 +70,15 @@ public final class SoftDraw {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         if (g == null) return;
-        BufferBuilder bb = Tesselator.getInstance().begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-        body.accept(new Batch(bb, g.pose().last().pose()));
-        com.mojang.blaze3d.vertex.MeshData mesh;
+        BufferBuilder bb = Tesselator.getInstance().getBuilder();
+        bb.begin(Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
         try {
-            mesh = bb.buildOrThrow();
-        } catch (IllegalStateException empty) {
-            // every segment was masked out or the shape had no area; nothing to upload
-            return;
+            body.accept(new Batch(bb, g.pose().last().pose()));
+            BufferBuilder.RenderedBuffer rendered = bb.endOrDiscardIfEmpty();
+            if (rendered != null) BufferUploader.drawWithShader(rendered);
+        } finally {
+            RenderSystem.disableBlend();
         }
-        BufferUploader.drawWithShader(mesh);
-        RenderSystem.disableBlend();
     }
 
     public static void gradientV(GuiGraphics g, float x0, float y0, float x1, float y1, int argbTop, int argbBottom) {

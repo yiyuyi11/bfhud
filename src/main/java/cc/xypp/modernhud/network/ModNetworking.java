@@ -1,7 +1,7 @@
 package cc.xypp.modernhud.network;
 
 import net.minecraft.server.level.ServerPlayer;
-import net.neoforged.bus.api.IEventBus;
+import net.minecraftforge.eventbus.api.IEventBus;
 
 /**
  * Network entry point.

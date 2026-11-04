@@ -2,8 +2,8 @@ package cc.xypp.modernhud.config;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
 public final class ConfigPresets {
    public static final String[] NAMES = new String[]{"default", "performance", "minimal"};
@@ -11,7 +11,7 @@ public final class ConfigPresets {
    private ConfigPresets() {
    }
 
-   private static ConfigPresets.Setting s(ModConfigSpec spec, String path, Object value) {
+   private static ConfigPresets.Setting s(ForgeConfigSpec spec, String path, Object value) {
       return new ConfigPresets.Setting(spec, path, value);
    }
 
@@ -43,11 +43,11 @@ public final class ConfigPresets {
    }
 
    public static int apply(String name) {
-      Set<ModConfigSpec> touched = new LinkedHashSet<>();
+      Set<ForgeConfigSpec> touched = new LinkedHashSet<>();
       int changed = 0;
       switch (name) {
          case "default":
-            for (ModConfigSpec spec : all()) {
+            for (ForgeConfigSpec spec : all()) {
                int n = ConfigPaths.resetAll(spec);
                if (n > 0) {
                   touched.add(spec);
@@ -69,7 +69,7 @@ public final class ConfigPresets {
             return -1;
       }
 
-      for (ModConfigSpec specx : touched) {
+      for (ForgeConfigSpec specx : touched) {
          ConfigPaths.save(specx);
       }
 
@@ -77,12 +77,12 @@ public final class ConfigPresets {
       return changed;
    }
 
-   public static ModConfigSpec[] all() {
-      return new ModConfigSpec[]{
+   public static ForgeConfigSpec[] all() {
+      return new ForgeConfigSpec[]{
          HudConfig.SPEC, WeaponConfig.SPEC, KillstreakConfig.SPEC, BossBarConfig.SPEC, HitIndicationConfig.SPEC, CompassConfig.SPEC, SoundsConfig.SPEC
       };
    }
 
-   private static record Setting(ModConfigSpec spec, String path, Object value) {
+   private static record Setting(ForgeConfigSpec spec, String path, Object value) {
    }
 }

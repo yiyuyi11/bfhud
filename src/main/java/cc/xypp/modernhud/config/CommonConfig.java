@@ -1,13 +1,13 @@
 package cc.xypp.modernhud.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec;
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue;
-import net.neoforged.neoforge.common.ModConfigSpec.Builder;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.fml.common.EventBusSubscriber.Bus;
-import net.neoforged.fml.event.config.ModConfigEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
+import net.minecraftforge.common.ForgeConfigSpec.Builder;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 
 public class CommonConfig {
    private static final Builder BUILDER = new Builder();
@@ -69,7 +69,7 @@ public class CommonConfig {
    private static final IntValue KILL_COOLDOWN = BUILDER.comment("Minimum time (ms) between kill cues per player (softens multi-kills). 0 = none.")
       .translation("modernhud.config.combat_sound_kill_cooldown")
       .defineInRange("killCooldownMs", 0, 0, 2000);
-   public static final ModConfigSpec SPEC = BUILDER.build();
+   public static final ForgeConfigSpec SPEC = BUILDER.build();
    public static boolean enableHitFeedback;
    public static boolean enableBreakFeedback;
    public static boolean clearAbsorptionOnEffectEnd;

@@ -34,7 +34,7 @@ public final class BarTextures {
       public final int height;
 
       Texture(String path, int width, int height) {
-         this.location = ResourceLocation.fromNamespaceAndPath("modernhud", path);
+         this.location = new ResourceLocation("modernhud", path);
          this.width = width;
          this.height = height;
       }

@@ -363,7 +363,7 @@ public class PlayerHudOverlay implements IGuiOverlay {
    }
 
    static void renderHead(GuiGraphics graphics, AbstractClientPlayer player, int x, int y, int size) {
-      renderHead(graphics, player.getSkin().texture(), x, y, size);
+      renderHead(graphics, player.getSkinTextureLocation(), x, y, size);
    }
 
    static void renderHead(GuiGraphics graphics, ResourceLocation skin, int x, int y, int size) {

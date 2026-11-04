@@ -1,7 +1,7 @@
 package cc.xypp.modernhud.client.compat;
 
 import net.minecraft.world.entity.Entity;
-import net.neoforged.fml.ModList;
+import net.minecraftforge.fml.ModList;
 
 public final class SuperbWarfareCompat {
    private static final boolean LOADED = ModList.get().isLoaded("superbwarfare");

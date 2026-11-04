@@ -1,7 +1,7 @@
 package cc.xypp.modernhud.config;
 
-import net.neoforged.neoforge.common.ModConfigSpec.ConfigValue;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
+import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 
 public final class ColorConfig {
    private static volatile boolean MIGRATING;

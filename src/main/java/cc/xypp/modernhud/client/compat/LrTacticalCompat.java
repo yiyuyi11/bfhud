@@ -3,7 +3,7 @@ package cc.xypp.modernhud.client.compat;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.fml.ModList;
+import net.minecraftforge.fml.ModList;
 
 import java.util.Locale;
 

@@ -15,6 +15,10 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
  */
 public class ModKeybinds {
    public static final String CATEGORY = "key.categories.modernhud";
+   public static final KeyMapping TOGGLE_HUD = new KeyMapping(
+      "key.modernhud.toggle_hud", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(),
+      "key.categories.modernhud"
+   );
    public static final KeyMapping TOGGLE_WEAPON_HUD = new KeyMapping(
       "key.modernhud.toggle_weapon_hud", InputConstants.Type.KEYSYM, InputConstants.UNKNOWN.getValue(),
       "key.categories.modernhud"
@@ -27,6 +31,9 @@ public class ModKeybinds {
    public static class ForgeBus {
       @SubscribeEvent
       public static void onClientTick(ClientTickEvent.Post event) {
+         while (TOGGLE_HUD.consumeClick()) {
+            cc.xypp.modernhud.config.HudConfig.toggleMaster();
+         }
          while (TOGGLE_WEAPON_HUD.consumeClick()) {
             WeaponConfig.toggleEnabled();
          }
@@ -36,6 +43,7 @@ public class ModKeybinds {
    /** Registered on the mod bus by {@code ModernHud}; the annotation would land on the game bus instead. */
    public static class ModBus {
       public static void onRegisterKeys(RegisterKeyMappingsEvent event) {
+         event.register(TOGGLE_HUD);
          event.register(TOGGLE_WEAPON_HUD);
       }
    }

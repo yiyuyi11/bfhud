@@ -47,6 +47,7 @@ public class ClientEvents {
    private static LayeredDraw.Layer layer(IGuiOverlay inner) {
       return (graphics, delta) -> {
          ensureConfig();
+         if (!HudConfig.master()) return;
          HudScale.render(inner, graphics, delta.getGameTimeDeltaPartialTick(false),
                  graphics.guiWidth(), graphics.guiHeight());
       };
@@ -57,9 +58,12 @@ public class ClientEvents {
    }
 
    private static void hide(RegisterGuiLayersEvent event, ResourceLocation... layers) {
-      LayeredDraw.Layer empty = (graphics, delta) -> { };
       for (ResourceLocation layer : layers) {
-         event.replaceLayer(layer, empty);
+         // With the master switch off the original layer draws again, so the vanilla HUD is not left blank.
+         event.wrapLayer(layer, original -> (graphics, delta) -> {
+            if (HudConfig.master()) return;
+            original.render(graphics, delta);
+         });
       }
    }
 

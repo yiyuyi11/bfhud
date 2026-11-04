@@ -41,7 +41,7 @@ export BF_CLASSPATH_FILE=/path/to/compile-classpath.txt
 
 # 2) 构建
 python build.py
-# 产物：build/libs/modernhud-full-1.3.0-neoforge-1.21.1.jar
+# 产物：build/libs/modernhud-full-1.0.0-neoforge-1.21.1.jar
 ```
 
 `build.py` 也支持把本仓库放在 `BattlefieldOps/` 旁边，直接复用 `../BattlefieldOps/build/compile-classpath.txt`。

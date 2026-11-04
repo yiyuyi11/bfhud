@@ -34,8 +34,7 @@ result = subprocess.run([str(JAVA / 'javac.exe'), '@' + str(ROOT / 'build/javac.
 if result.returncode:
     raise SystemExit(result.returncode)
 
-version = tomllib.loads(metadata.decode('utf-8'))['mods'][0]['version']
-out = ROOT / f'build/libs/modernhud-full-{version}-neoforge-1.21.1.jar'
+out = ROOT / 'build/libs/modernhud-full-1.0.0-neoforge-1.21.1.jar'
 out.parent.mkdir(exist_ok=True)
 with zipfile.ZipFile(out, 'w', zipfile.ZIP_DEFLATED) as z:
     for folder in [classes, ROOT / 'src/main/resources']:
